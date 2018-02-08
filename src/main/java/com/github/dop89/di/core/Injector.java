@@ -11,11 +11,13 @@ import java.util.Set;
 
 public class Injector {
 
-    private Injector() {
-        // prevent initialization
+    private ApplicationContext context;
+
+    Injector(ApplicationContext context) {
+        this.context = context;
     }
 
-    static void scan(Class... clazz) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    void scan(Class... clazz) throws IllegalAccessException, InvocationTargetException, InstantiationException {
 
         for (Class cls : clazz) {
 
@@ -33,15 +35,15 @@ public class Injector {
                     Object bean = m.invoke(object);
 
                     //save bean in registry
-                    ApplicationContext.registerBean(bean.getClass(), bean);
+                    context.registerBean(bean.getClass(), bean);
                 }
             }
         }
     }
 
-    static void inject() throws IllegalAccessException {
+    void inject() throws IllegalAccessException {
 
-        Set<Class> classes = ApplicationContext.getClasses();
+        Set<Class> classes = context.getClasses();
 
         for (Class cls : classes) {
 
@@ -54,11 +56,14 @@ public class Injector {
 
                     Class<?> typeOfField = field.getType();
 
-                    // check if beans are available for classes
-                    if (ApplicationContext.hasBeanForClass(typeOfField) && ApplicationContext.hasBeanForClass(cls)) {
+                    boolean hasBeanForField = context.hasBeanForClass(typeOfField);
+                    boolean hasBeanForObjectToInject = context.hasBeanForClass(cls);
 
-                        Object theFieldObject = ApplicationContext.getBean(typeOfField);
-                        Object theObjectToInject = ApplicationContext.getBean(cls);
+                    // check if beans are available for classes
+                    if (hasBeanForField && hasBeanForObjectToInject) {
+
+                        Object theFieldObject = context.getBean(typeOfField);
+                        Object theObjectToInject = context.getBean(cls);
 
                         field.setAccessible(true);
                         field.set(theObjectToInject, theFieldObject);

@@ -2,26 +2,26 @@ package com.github.dop89.test;
 
 import com.github.dop89.di.core.ApplicationContext;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class Runner {
 
-    public static void main (String[] args) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    public static void main(String[] args) {
+
+        ApplicationContext context = new ApplicationContext();
 
         // scan classes for bean definitions
-        ApplicationContext.scanClasses(BeanDefinitions.class);
+        context.scanClasses(BeanDefinitions.class);
 
         // print all registered beans
-        ApplicationContext.printDeclaredBeans();
+        context.printDeclaredBeans();
 
         // inject dependencies
-        ApplicationContext.inject();
+        context.inject();
 
         // print all registered beans after dependency injection
-        ApplicationContext.printDeclaredBeans();
+        context.printDeclaredBeans();
 
         // get Vehicle Bean from application context
-        Vehicle vehicle = ApplicationContext.getBean(Vehicle.class);
+        Vehicle vehicle = context.getBean(Vehicle.class);
         System.out.println(vehicle);
     }
 }
