@@ -6,10 +6,10 @@ public class BeanDefinitions {
 
     @Bean
     public Gearbox gearbox() {
-        Gearbox g = new Gearbox();
-        g.setName("Sport");
+        Gearbox gearbox = new Gearbox();
+        gearbox.setName("Sport");
 
-        return g;
+        return gearbox;
     }
 
     @Bean

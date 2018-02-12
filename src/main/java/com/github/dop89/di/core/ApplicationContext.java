@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * The Application Context of the DI Framework
+ */
 public class ApplicationContext {
 
     private ConcurrentHashMap<Class, Object> mappings;
@@ -42,7 +45,7 @@ public class ApplicationContext {
     }
 
     public void printDeclaredBeans() {
-        mappings.entrySet().stream().forEach(e -> System.out.println("Bean for class [" + e.getKey() + "]: " + e.getValue().toString()));
+        mappings.entrySet().forEach(e -> System.out.println("Bean for class [" + e.getKey() + "]: " + e.getValue().toString()));
     }
 
     public boolean hasBeanForClass(Class cls) {

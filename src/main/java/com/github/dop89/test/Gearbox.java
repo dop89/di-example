@@ -1,5 +1,8 @@
 package com.github.dop89.test;
 
+/**
+ * Sample bean which will be injected
+ */
 public class Gearbox {
 
     private String name;

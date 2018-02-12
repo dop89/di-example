@@ -2,9 +2,13 @@ package com.github.dop89.test;
 
 import com.github.dop89.di.annotations.Autowired;
 
+/**
+ * Sample bean in which another bean will be injected
+ */
 public class Vehicle {
 
     private String id;
+
     private String name;
 
     @Autowired

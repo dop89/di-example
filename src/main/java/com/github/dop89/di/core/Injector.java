@@ -9,6 +9,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+/**
+ * Component responsible for scanning for and injecting beans
+ */
 public class Injector {
 
     private ApplicationContext context;
@@ -17,6 +20,13 @@ public class Injector {
         this.context = context;
     }
 
+    /**
+     * Scans the given classes for bean definitions, declared with {@link Bean}
+     * @param clazz classes to scan
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     */
     void scan(Class... clazz) throws IllegalAccessException, InvocationTargetException, InstantiationException {
 
         for (Class cls : clazz) {
@@ -41,6 +51,10 @@ public class Injector {
         }
     }
 
+    /**
+     * Inject beans
+     * @throws IllegalAccessException
+     */
     void inject() throws IllegalAccessException {
 
         Set<Class> classes = context.getClasses();
